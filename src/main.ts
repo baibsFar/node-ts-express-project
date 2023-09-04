@@ -1,6 +1,7 @@
 import express from 'express'
 import { setup } from './core/setup'
 import { config } from 'dotenv'
+import 'reflect-metadata'
 
 config()
 
