@@ -3,7 +3,8 @@ import { Router as ExpressRouter, Request, Response, NextFunction } from 'expres
 export interface Route {
     path: string
     method: 'get' | 'post' | 'put' | 'patch' | "delete"
-    handler: (req: Request, res: Response, next?: NextFunction) => void
+    handler: (req: Request, res: Response, next?: NextFunction) => void,
+    middlewares: Array<(req: Request, res: Response, next?: NextFunction) => void>
 }
 
 export class Router {
@@ -28,7 +29,7 @@ export class Router {
             Router.routerInstance = ExpressRouter()
 
         Router.routes.forEach(r => {
-            Router.routerInstance[r.method](r.path, r.handler)
+            Router.routerInstance[r.method](r.path, ...(r.middlewares), r.handler)
             console.log(`\x1b[36m [+] ${r.method.toUpperCase()} ->  ${r.path} \x1b[0m`)
         })
 
