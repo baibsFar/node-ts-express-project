@@ -13,7 +13,7 @@ export class Router {
     public static addRoute(route: Route) {
         let routeAlreadyExists: boolean = false
         Router.routes.forEach(r => {
-            if (r.path === route.path) {
+            if (r.path === route.path && r.method === route.method) {
                 routeAlreadyExists = true
                 return
             }
